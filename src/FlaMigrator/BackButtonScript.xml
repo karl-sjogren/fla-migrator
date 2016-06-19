@@ -1,0 +1,9 @@
+﻿<Framescript language="JavaScript">
+  <script>
+    <![CDATA[
+      this.backBTN.addEventListener('click', function() { 
+	      window.gotoChapterMenu();
+	    }.bind(this));
+    ]]>
+  </script>
+</Framescript>
