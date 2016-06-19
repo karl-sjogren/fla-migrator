@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 using Ionic.Zip;
 using Ionic.Zlib;
@@ -35,8 +36,8 @@ namespace FlaMigrator {
                 DoWork(file);
             }*/
 
-            Parallel.ForEach(allFiles, (file) => DoWork(file));
-            
+            Parallel.ForEach(allFiles, DoWork);
+
 
             Debugger.Break();
 
@@ -65,7 +66,7 @@ namespace FlaMigrator {
             foreach(var file in allFiles) {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(new FileInfo(file).Name + "                                       ");
-                
+
                 XDocument doc;
                 try {
                     doc = XDocument.Load(file);
@@ -91,7 +92,7 @@ namespace FlaMigrator {
                     script.node.Value = cleanedScript;
 
                     var snippet = _codeSnippets.FirstOrDefault(s => s.Code == cleanedScript);
-                    
+
                     if(snippet == null) {
                         snippet = new Script { Code = cleanedScript };
                         _codeSnippets.Add(snippet);
@@ -100,7 +101,18 @@ namespace FlaMigrator {
                     snippet.Locations.Add(new Script.Location { Frame = script.frame, Layer = script.layer, File = file });
                 }
 
-                doc.Save(file);
+                var settings = new XmlWriterSettings {
+                    Encoding = Encoding.UTF8,
+                    Indent = true,
+                    IndentChars = "  ",
+                    NewLineHandling = NewLineHandling.Entitize
+                };
+
+                //doc.Save(file);
+
+                using(var writer = XmlWriter.Create(file, settings)) {
+                    doc.Save(writer);
+                }
             }
 
             Repack(filename);
@@ -123,7 +135,7 @@ namespace FlaMigrator {
             script = FixStop.Replace(script, "this.stop();");
             script = FixPlay.Replace(script, "this.play();");
             script = FixCurrentFrame.Replace(script, "this.currentframe");
-            script = FixGotoAndPlay.Replace(script, match => "this." + match.Groups["Prefix"].Value + "gotoAndPlay(" + match.Groups["Frame"].Value +");");
+            script = FixGotoAndPlay.Replace(script, match => "this." + match.Groups["Prefix"].Value + "gotoAndPlay(" + match.Groups["Frame"].Value + ");");
 
             script = FixOnAction.Replace(script, match => @"this." + match.Groups["Clip"].Value + ".addEventListener('click', function() { " + match.Groups["Body"] + " }.bind(this));");
 
@@ -157,7 +169,7 @@ namespace FlaMigrator {
 
         private static void Repack(string filename) {
             var fi = new FileInfo(filename);
-            
+
             var targetPath = fi.Directory.FullName.Substring(DataDirectory.Length);
             targetPath = Path.Combine(OutputDirectory, targetPath);
 
