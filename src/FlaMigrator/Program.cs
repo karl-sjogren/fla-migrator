@@ -141,6 +141,14 @@ namespace FlaMigrator {
                 }
 
                 if(new FileInfo(file).Name == "DOMDocument.xml") {
+                    var badBackButtons = doc.Descendants(ns + "DOMSymbolInstance").Where(n => n.Attribute("libraryItemName")?.Value == "till huvudmenyn").ToArray();
+                    foreach (var badBackButton in badBackButtons) {
+                        if (badBackButton.Attribute("name") != null)
+                            continue;
+                        var attribute = new XAttribute("name", "backBTN");
+                        badBackButton.Add(attribute);
+                    }
+
                     //<DOMSymbolInstance libraryItemName="till huvudmenyn" name="backBTN" symbolType="button">
                     var backButtons = doc.Descendants(ns + "DOMSymbolInstance").Where(n => n.Attribute("name")?.Value == "backBTN").ToArray();
                     foreach(var backButton in backButtons) {
