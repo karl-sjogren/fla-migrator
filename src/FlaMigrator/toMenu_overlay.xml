@@ -1,6 +1,6 @@
-<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="overlay" itemID="575ef3e7-00007243" symbolType="button" lastModified="1465841355">
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="toMenu_overlay" itemID="57f7a9a1-0000029a" symbolType="graphic" lastModified="1475848609">
   <timeline>
-    <DOMTimelineLocation name="overlay">
+    <DOMTimeline name="toMenu_overlay">
       <layers>
         <DOMLayer name="Layer 1" color="#4F80FF" current="true" isSelected="true">
           <frames>
@@ -13,7 +13,7 @@
                     </FillStyle>
                   </fills>
                   <edges>
-                    <Edge fillStyle1="1" edges="!0 0|4040 0!4040 0|4040 580!4040 580|0 580!0 580|0 0"/>
+                    <Edge fillStyle1="1" edges="!0 0S2|4020 0!4020 0|4020 820!4020 820|0 820!0 820|0 0"/>
                   </edges>
                 </DOMShape>
               </elements>
@@ -21,6 +21,6 @@
           </frames>
         </DOMLayer>
       </layers>
-    </DOMTimelineLocation>
+    </DOMTimeline>
   </timeline>
 </DOMSymbolItem>

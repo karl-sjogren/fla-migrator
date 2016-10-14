@@ -1,0 +1,19 @@
+<DOMLayer name="Layer 2" color="#9933CC" current="true" isSelected="true">
+  <frames>
+    <DOMFrame index="0" duration="3" keyMode="9728">
+      <elements>
+        <DOMSymbolInstance libraryItemName="backToMenu_overlay" symbolType="graphic" loop="loop">
+          <matrix>
+            <Matrix tx="-9.05" ty="-6.95"/>
+          </matrix>
+          <transformationPoint>
+            <Point x="100.5" y="20.5"/>
+          </transformationPoint>
+          <color>
+            <Color alphaMultiplier="0.01171875"/>
+          </color>
+        </DOMSymbolInstance>
+      </elements>
+    </DOMFrame>
+  </frames>
+</DOMLayer>
